@@ -1,0 +1,133 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Sprites/A_Mad.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/C_Neutral.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/B_Mad.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/C_Happy.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/B_Neutral.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/A_Happy.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/A_Neutral.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/B_Happy.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/C_Mad.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "Happy",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "Neutral",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "Mad",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "Happy",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "Neutral",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Mad",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "Happy",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Neutral",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "Mad",
+"speed": 5.0
+} ]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="P1" type="Node" parent="."]
+script = ExtResource( 10 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="P1"]
+position = Vector2( 151, 184 )
+scale = Vector2( 0.502, 0.502 )
+frames = SubResource( 1 )
+animation = "Neutral"
+
+[node name="Mood" type="RichTextLabel" parent="P1"]
+margin_left = 42.0
+margin_top = 321.0
+margin_right = 266.0
+margin_bottom = 361.0
+
+[node name="Money" type="RichTextLabel" parent="P1"]
+margin_left = 40.0
+margin_top = 375.0
+margin_right = 264.0
+margin_bottom = 415.0
+
+[node name="P2" type="Node" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="P2"]
+position = Vector2( 503, 190 )
+scale = Vector2( 0.502, 0.502 )
+frames = SubResource( 2 )
+animation = "Happy"
+
+[node name="Mood" type="RichTextLabel" parent="P2"]
+anchor_right = 0.051
+anchor_bottom = 0.067
+margin_left = 389.0
+margin_top = 323.0
+margin_right = 563.776
+margin_bottom = 318.8
+
+[node name="Money" type="RichTextLabel" parent="P2"]
+anchor_right = 0.051
+anchor_bottom = 0.067
+margin_left = 383.0
+margin_top = 379.0
+margin_right = 565.776
+margin_bottom = 374.8
+
+[node name="P3" type="Node" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="P3"]
+position = Vector2( 861, 188 )
+scale = Vector2( 0.502, 0.502 )
+frames = SubResource( 3 )
+animation = "Mad"
+
+[node name="Mood" type="RichTextLabel" parent="P3"]
+margin_left = 768.0
+margin_top = 327.0
+margin_right = 961.0
+margin_bottom = 367.0
+
+[node name="Money" type="RichTextLabel" parent="P3"]
+margin_left = 746.0
+margin_top = 387.0
+margin_right = 962.0
+margin_bottom = 423.0
