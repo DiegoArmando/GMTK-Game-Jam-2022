@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Sprites/A_Mad.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/C_Neutral.png" type="Texture" id=2]
@@ -21,11 +21,6 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "Mad",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 7 ) ],
 "loop": true,
 "name": "Neutral",
@@ -35,15 +30,18 @@ animations = [ {
 "loop": true,
 "name": "Happy",
 "speed": 5.0
-} ]
-
-[sub_resource type="SpriteFrames" id=2]
-animations = [ {
-"frames": [ ExtResource( 3 ) ],
+}, {
+"frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "Mad",
 "speed": 5.0
-}, {
+} ]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 33, 32.5 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "Neutral",
@@ -53,15 +51,15 @@ animations = [ {
 "loop": true,
 "name": "Happy",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Mad",
+"speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "Mad",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "Neutral",
@@ -70,6 +68,11 @@ animations = [ {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "Happy",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "Mad",
 "speed": 5.0
 } ]
 
@@ -80,19 +83,19 @@ animations = [ {
 "name": "9",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "10",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 12 ) ],
-"loop": true,
-"name": "Q",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 15 ) ],
 "loop": true,
 "name": "K",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ) ],
+"loop": true,
+"name": "A",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "10",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 13 ) ],
@@ -100,11 +103,14 @@ animations = [ {
 "name": "J",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 17 ) ],
+"frames": [ ExtResource( 12 ) ],
 "loop": true,
-"name": "A",
+"name": "Q",
 "speed": 5.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 24.5, 25.5 )
 
 [node name="Node2D" type="Node2D"]
 
@@ -132,8 +138,14 @@ margin_top = 22.0
 margin_right = 259.0
 margin_bottom = 62.0
 
-[node name="SlotA" type="Polygon2D" parent="P1"]
-polygon = PoolVector2Array( 32, 336, 115, 336, 116, 405, 34, 403 )
+[node name="Area2D" type="Area2D" parent="P1"]
+position = Vector2( 68, 367.5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="P1/Area2D"]
+shape = SubResource( 6 )
+
+[node name="Polygon2D" type="Polygon2D" parent="P1/Area2D"]
+polygon = PoolVector2Array( -34, -32.5, 37, -32.5, 36, 34.5, -37, 34.5 )
 
 [node name="SlotB" type="Polygon2D" parent="P1"]
 position = Vector2( 126, 2 )
@@ -234,41 +246,94 @@ animation = "A"
 [node name="DicePool" type="Node" parent="DiceBoss"]
 
 [node name="Die 1" type="AnimatedSprite" parent="DiceBoss/DicePool"]
-position = Vector2( 85, 456 )
+modulate = Color( 0.568627, 0.568627, 0.568627, 1 )
+position = Vector2( 89, 456 )
 scale = Vector2( 0.0974999, 0.0974999 )
 frames = SubResource( 4 )
 animation = "A"
 script = ExtResource( 18 )
 
+[node name="KinematicBody2D" type="KinematicBody2D" parent="DiceBoss/DicePool/Die 1"]
+scale = Vector2( 10.2564, 10.2564 )
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DiceBoss/DicePool/Die 1/KinematicBody2D"]
+shape = SubResource( 5 )
+
 [node name="Die 2" type="AnimatedSprite" parent="DiceBoss/DicePool"]
+modulate = Color( 0.568627, 0.568627, 0.568627, 1 )
 position = Vector2( 185, 456 )
 scale = Vector2( 0.0974999, 0.0974999 )
 frames = SubResource( 4 )
 animation = "A"
+script = ExtResource( 18 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="DiceBoss/DicePool/Die 2"]
+scale = Vector2( 10.2564, 10.2564 )
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DiceBoss/DicePool/Die 2/KinematicBody2D"]
+shape = SubResource( 5 )
 
 [node name="Die 3" type="AnimatedSprite" parent="DiceBoss/DicePool"]
+modulate = Color( 0.568627, 0.568627, 0.568627, 1 )
 position = Vector2( 441, 467 )
 scale = Vector2( 0.0974999, 0.0974999 )
 frames = SubResource( 4 )
 animation = "A"
+script = ExtResource( 18 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="DiceBoss/DicePool/Die 3"]
+scale = Vector2( 10.2564, 10.2564 )
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DiceBoss/DicePool/Die 3/KinematicBody2D"]
+shape = SubResource( 5 )
 
 [node name="Die 4" type="AnimatedSprite" parent="DiceBoss/DicePool"]
+modulate = Color( 0.568627, 0.568627, 0.568627, 1 )
 position = Vector2( 564, 464 )
 scale = Vector2( 0.0974999, 0.0974999 )
 frames = SubResource( 4 )
 animation = "A"
+script = ExtResource( 18 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="DiceBoss/DicePool/Die 4"]
+scale = Vector2( 10.2564, 10.2564 )
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DiceBoss/DicePool/Die 4/KinematicBody2D"]
+shape = SubResource( 5 )
 
 [node name="Die 5" type="AnimatedSprite" parent="DiceBoss/DicePool"]
+modulate = Color( 0.568627, 0.568627, 0.568627, 1 )
 position = Vector2( 792, 463 )
 scale = Vector2( 0.0974999, 0.0974999 )
 frames = SubResource( 4 )
 animation = "A"
+script = ExtResource( 18 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="DiceBoss/DicePool/Die 5"]
+scale = Vector2( 10.2564, 10.2564 )
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DiceBoss/DicePool/Die 5/KinematicBody2D"]
+shape = SubResource( 5 )
 
 [node name="Die 6" type="AnimatedSprite" parent="DiceBoss/DicePool"]
+modulate = Color( 0.568627, 0.568627, 0.568627, 1 )
 position = Vector2( 902, 462 )
 scale = Vector2( 0.0974999, 0.0974999 )
 frames = SubResource( 4 )
 animation = "A"
+script = ExtResource( 18 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="DiceBoss/DicePool/Die 6"]
+scale = Vector2( 10.2564, 10.2564 )
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DiceBoss/DicePool/Die 6/KinematicBody2D"]
+shape = SubResource( 5 )
 
 [node name="RollButton" type="Button" parent="."]
 margin_left = 38.0
@@ -284,4 +349,16 @@ margin_right = 983.0
 margin_bottom = 581.0
 text = "Evaluate Hands"
 
+[connection signal="mouse_entered" from="DiceBoss/DicePool/Die 1/KinematicBody2D" to="DiceBoss/DicePool/Die 1" method="_on_KinematicBody2D_mouse_entered"]
+[connection signal="mouse_exited" from="DiceBoss/DicePool/Die 1/KinematicBody2D" to="DiceBoss/DicePool/Die 1" method="_on_KinematicBody2D_mouse_exited"]
+[connection signal="mouse_entered" from="DiceBoss/DicePool/Die 2/KinematicBody2D" to="DiceBoss/DicePool/Die 2" method="_on_KinematicBody2D_mouse_entered"]
+[connection signal="mouse_exited" from="DiceBoss/DicePool/Die 2/KinematicBody2D" to="DiceBoss/DicePool/Die 2" method="_on_KinematicBody2D_mouse_exited"]
+[connection signal="mouse_entered" from="DiceBoss/DicePool/Die 3/KinematicBody2D" to="DiceBoss/DicePool/Die 3" method="_on_KinematicBody2D_mouse_entered"]
+[connection signal="mouse_exited" from="DiceBoss/DicePool/Die 3/KinematicBody2D" to="DiceBoss/DicePool/Die 3" method="_on_KinematicBody2D_mouse_exited"]
+[connection signal="mouse_entered" from="DiceBoss/DicePool/Die 4/KinematicBody2D" to="DiceBoss/DicePool/Die 4" method="_on_KinematicBody2D_mouse_entered"]
+[connection signal="mouse_exited" from="DiceBoss/DicePool/Die 4/KinematicBody2D" to="DiceBoss/DicePool/Die 4" method="_on_KinematicBody2D_mouse_exited"]
+[connection signal="mouse_entered" from="DiceBoss/DicePool/Die 5/KinematicBody2D" to="DiceBoss/DicePool/Die 5" method="_on_KinematicBody2D_mouse_entered"]
+[connection signal="mouse_exited" from="DiceBoss/DicePool/Die 5/KinematicBody2D" to="DiceBoss/DicePool/Die 5" method="_on_KinematicBody2D_mouse_exited"]
+[connection signal="mouse_entered" from="DiceBoss/DicePool/Die 6/KinematicBody2D" to="DiceBoss/DicePool/Die 6" method="_on_KinematicBody2D_mouse_entered"]
+[connection signal="mouse_exited" from="DiceBoss/DicePool/Die 6/KinematicBody2D" to="DiceBoss/DicePool/Die 6" method="_on_KinematicBody2D_mouse_exited"]
 [connection signal="pressed" from="RollButton" to="DiceBoss" method="_on_RollButton_pressed"]
