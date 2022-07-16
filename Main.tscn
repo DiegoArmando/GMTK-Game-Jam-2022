@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Sprites/A_Mad.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/C_Neutral.png" type="Texture" id=2]
@@ -10,12 +10,20 @@
 [ext_resource path="res://Sprites/B_Happy.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/C_Mad.png" type="Texture" id=9]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=10]
+[ext_resource path="res://DiceBoss.gd" type="Script" id=11]
+[ext_resource path="res://Sprites/Die_Q.png" type="Texture" id=12]
+[ext_resource path="res://Sprites/Die_J.png" type="Texture" id=13]
+[ext_resource path="res://Sprites/Die_10.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/Die_K.png" type="Texture" id=15]
+[ext_resource path="res://Sprites/Die_9.png" type="Texture" id=16]
+[ext_resource path="res://Sprites/Die_A.png" type="Texture" id=17]
+[ext_resource path="res://PublicDie.gd" type="Script" id=18]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "Happy",
+"name": "Mad",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 7 ) ],
@@ -23,17 +31,17 @@ animations = [ {
 "name": "Neutral",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ ExtResource( 6 ) ],
 "loop": true,
-"name": "Mad",
+"name": "Happy",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 8 ) ],
+"frames": [ ExtResource( 3 ) ],
 "loop": true,
-"name": "Happy",
+"name": "Mad",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 5 ) ],
@@ -41,17 +49,17 @@ animations = [ {
 "name": "Neutral",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ) ],
+"frames": [ ExtResource( 8 ) ],
 "loop": true,
-"name": "Mad",
+"name": "Happy",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 4 ) ],
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
-"name": "Happy",
+"name": "Mad",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ) ],
@@ -59,9 +67,42 @@ animations = [ {
 "name": "Neutral",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ) ],
+"frames": [ ExtResource( 4 ) ],
 "loop": true,
-"name": "Mad",
+"name": "Happy",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "9",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "10",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "Q",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "K",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "J",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ) ],
+"loop": true,
+"name": "A",
 "speed": 5.0
 } ]
 
@@ -69,6 +110,9 @@ animations = [ {
 
 [node name="P1" type="Node" parent="."]
 script = ExtResource( 10 )
+player_sprite = NodePath("AnimatedSprite")
+money_path = NodePath("Money")
+mood_path = NodePath("Mood")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="P1"]
 position = Vector2( 151, 184 )
@@ -77,16 +121,23 @@ frames = SubResource( 1 )
 animation = "Neutral"
 
 [node name="Mood" type="RichTextLabel" parent="P1"]
-margin_left = 42.0
-margin_top = 321.0
-margin_right = 266.0
-margin_bottom = 361.0
+margin_left = 30.0
+margin_top = 2.0
+margin_right = 254.0
+margin_bottom = 41.0
 
 [node name="Money" type="RichTextLabel" parent="P1"]
-margin_left = 40.0
-margin_top = 375.0
-margin_right = 264.0
-margin_bottom = 415.0
+margin_left = 35.0
+margin_top = 22.0
+margin_right = 259.0
+margin_bottom = 62.0
+
+[node name="SlotA" type="Polygon2D" parent="P1"]
+polygon = PoolVector2Array( 32, 336, 115, 336, 116, 405, 34, 403 )
+
+[node name="SlotB" type="Polygon2D" parent="P1"]
+position = Vector2( 126, 2 )
+polygon = PoolVector2Array( 32, 336, 115, 336, 116, 405, 34, 403 )
 
 [node name="P2" type="Node" parent="."]
 
@@ -94,7 +145,7 @@ margin_bottom = 415.0
 position = Vector2( 503, 190 )
 scale = Vector2( 0.502, 0.502 )
 frames = SubResource( 2 )
-animation = "Happy"
+animation = "Neutral"
 
 [node name="Mood" type="RichTextLabel" parent="P2"]
 anchor_right = 0.051
@@ -112,13 +163,21 @@ margin_top = 379.0
 margin_right = 565.776
 margin_bottom = 374.8
 
+[node name="SlotA" type="Polygon2D" parent="P2"]
+position = Vector2( 368, 2 )
+polygon = PoolVector2Array( 32, 336, 115, 336, 116, 405, 34, 403 )
+
+[node name="SlotB" type="Polygon2D" parent="P2"]
+position = Vector2( 494, 4 )
+polygon = PoolVector2Array( 32, 336, 115, 336, 116, 405, 34, 403 )
+
 [node name="P3" type="Node" parent="."]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="P3"]
 position = Vector2( 861, 188 )
 scale = Vector2( 0.502, 0.502 )
 frames = SubResource( 3 )
-animation = "Mad"
+animation = "Neutral"
 
 [node name="Mood" type="RichTextLabel" parent="P3"]
 margin_left = 768.0
@@ -131,3 +190,98 @@ margin_left = 746.0
 margin_top = 387.0
 margin_right = 962.0
 margin_bottom = 423.0
+
+[node name="SlotA" type="Polygon2D" parent="P3"]
+position = Vector2( 718, 4 )
+polygon = PoolVector2Array( 32, 336, 115, 336, 116, 405, 34, 403 )
+
+[node name="SlotB" type="Polygon2D" parent="P3"]
+position = Vector2( 844, 6 )
+polygon = PoolVector2Array( 32, 336, 115, 336, 116, 405, 34, 403 )
+
+[node name="DiceBoss" type="Node" parent="."]
+script = ExtResource( 11 )
+public_1_path = NodePath("PublicDice/Public Die 1")
+public_2_path = NodePath("PublicDice/Public Die 2")
+public_3_path = NodePath("PublicDice/Public Die 3")
+rolled_1_path = NodePath("DicePool/Die 1")
+rolled_2_path = NodePath("DicePool/Die 2")
+rolled_3_path = NodePath("DicePool/Die 3")
+rolled_4_path = NodePath("DicePool/Die 4")
+rolled_5_path = NodePath("DicePool/Die 5")
+rolled_6_path = NodePath("DicePool/Die 6")
+
+[node name="PublicDice" type="Node" parent="DiceBoss"]
+
+[node name="Public Die 1" type="AnimatedSprite" parent="DiceBoss/PublicDice"]
+position = Vector2( 377, 558 )
+scale = Vector2( 0.0974999, 0.0974999 )
+frames = SubResource( 4 )
+animation = "A"
+
+[node name="Public Die 2" type="AnimatedSprite" parent="DiceBoss/PublicDice"]
+position = Vector2( 476, 559 )
+scale = Vector2( 0.0974999, 0.0974999 )
+frames = SubResource( 4 )
+animation = "A"
+
+[node name="Public Die 3" type="AnimatedSprite" parent="DiceBoss/PublicDice"]
+position = Vector2( 568, 558 )
+scale = Vector2( 0.0974999, 0.0974999 )
+frames = SubResource( 4 )
+animation = "A"
+
+[node name="DicePool" type="Node" parent="DiceBoss"]
+
+[node name="Die 1" type="AnimatedSprite" parent="DiceBoss/DicePool"]
+position = Vector2( 85, 456 )
+scale = Vector2( 0.0974999, 0.0974999 )
+frames = SubResource( 4 )
+animation = "A"
+script = ExtResource( 18 )
+
+[node name="Die 2" type="AnimatedSprite" parent="DiceBoss/DicePool"]
+position = Vector2( 185, 456 )
+scale = Vector2( 0.0974999, 0.0974999 )
+frames = SubResource( 4 )
+animation = "A"
+
+[node name="Die 3" type="AnimatedSprite" parent="DiceBoss/DicePool"]
+position = Vector2( 441, 467 )
+scale = Vector2( 0.0974999, 0.0974999 )
+frames = SubResource( 4 )
+animation = "A"
+
+[node name="Die 4" type="AnimatedSprite" parent="DiceBoss/DicePool"]
+position = Vector2( 564, 464 )
+scale = Vector2( 0.0974999, 0.0974999 )
+frames = SubResource( 4 )
+animation = "A"
+
+[node name="Die 5" type="AnimatedSprite" parent="DiceBoss/DicePool"]
+position = Vector2( 792, 463 )
+scale = Vector2( 0.0974999, 0.0974999 )
+frames = SubResource( 4 )
+animation = "A"
+
+[node name="Die 6" type="AnimatedSprite" parent="DiceBoss/DicePool"]
+position = Vector2( 902, 462 )
+scale = Vector2( 0.0974999, 0.0974999 )
+frames = SubResource( 4 )
+animation = "A"
+
+[node name="RollButton" type="Button" parent="."]
+margin_left = 38.0
+margin_top = 528.0
+margin_right = 264.0
+margin_bottom = 581.0
+text = "Roll Dice"
+
+[node name="ScoreButton" type="Button" parent="."]
+margin_left = 757.0
+margin_top = 528.0
+margin_right = 983.0
+margin_bottom = 581.0
+text = "Evaluate Hands"
+
+[connection signal="pressed" from="RollButton" to="DiceBoss" method="_on_RollButton_pressed"]
