@@ -30,7 +30,13 @@ var rng = RandomNumberGenerator.new()
 class HandSorter:
 	static func sort_ascending(a,b):
 		if a[0] == b[0]:
-			return a[1] < b[1]
+			if a[1][2] == b[1][2]:
+				if a[1][1] == b[1][1]:
+					return a[1][0] < b[1][0]
+				else:
+					return a[1][1] < b[1][1]
+			else:
+					return a[1][2] < b[1][2]
 		return a[0] < b[0]
 # Declare member variables here. Examples:
 # var a = 2
@@ -97,20 +103,16 @@ func evaluate_hands(public_die_value):
 	p2_hand.sort()
 	p3_hand.sort()
 	
-	var p1_high = p1_hand.back()
-	var p2_high = p2_hand.back()
-	var p3_high = p3_hand.back()
-	
 	var p1_type = determine_type(p1_hand)
 	var p2_type = determine_type(p2_hand)
 	var p3_type = determine_type(p3_hand)
 	
-	var p1_hand_obj = [p1_type, p1_high]
-	var p2_hand_obj = [p2_type, p2_high]
-	var p3_hand_obj = [p3_type, p3_high]
+	var p1_hand_obj = [p1_type, p1_hand]
+	var p2_hand_obj = [p2_type, p2_hand]
+	var p3_hand_obj = [p3_type, p3_hand]
 	
 	var all_hands = [p1_hand_obj, p2_hand_obj, p3_hand_obj]
-	all_hands.sort_custom()
+	all_hands.sort_custom(HandSorter, "sort_ascending")
 	var winner
 	match all_hands.back():
 		p1_hand_obj:
@@ -120,5 +122,5 @@ func evaluate_hands(public_die_value):
 		p3_hand_obj:
 			winner = "Player 3"
 	
-	$TestText.text = "Winner is " + winner
+	$TestText.text = "Winner: " + winner
 	#pass
