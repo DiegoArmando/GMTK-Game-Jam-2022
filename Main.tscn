@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Sprites/A_Mad.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/C_Neutral.png" type="Texture" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://Sprites/Die_A.png" type="Texture" id=17]
 [ext_resource path="res://PublicDie.gd" type="Script" id=18]
 [ext_resource path="res://DialogTester.gd" type="Script" id=19]
+[ext_resource path="res://PauseLayer.tscn" type="PackedScene" id=20]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -81,21 +82,6 @@ animations = [ {
 "name": "10",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 12 ) ],
-"loop": true,
-"name": "Q",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 15 ) ],
-"loop": true,
-"name": "K",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 13 ) ],
-"loop": true,
-"name": "J",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 16 ) ],
 "loop": true,
 "name": "9",
@@ -104,6 +90,21 @@ animations = [ {
 "frames": [ ExtResource( 17 ) ],
 "loop": true,
 "name": "A",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "J",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "K",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "Q",
 "speed": 5.0
 } ]
 
@@ -296,6 +297,8 @@ margin_bottom = 50.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Debug Dialog"
+
+[node name="PauseLayer" parent="." instance=ExtResource( 20 )]
 
 [connection signal="pressed" from="RollButton" to="DiceBoss" method="_on_RollButton_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
