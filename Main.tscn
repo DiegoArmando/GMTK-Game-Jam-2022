@@ -16,13 +16,16 @@
 [ext_resource path="res://Sprites/Die_10.png" type="Texture" id=14]
 [ext_resource path="res://Sprites/Die_K.png" type="Texture" id=15]
 [ext_resource path="res://Sprites/Die_9.png" type="Texture" id=16]
-[ext_resource path="res://Sprites/Die_A.png" type="Texture" id=17]
-[ext_resource path="res://PublicDie.gd" type="Script" id=18]
 [ext_resource path="res://DialogTester.gd" type="Script" id=19]
 [ext_resource path="res://PauseLayer.tscn" type="PackedScene" id=20]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "Mad",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 7 ) ],
 "loop": true,
 "name": "Neutral",
@@ -32,11 +35,6 @@ animations = [ {
 "loop": true,
 "name": "Happy",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "Mad",
-"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=6]
@@ -44,6 +42,11 @@ extents = Vector2( 33, 32.5 )
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Mad",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "Neutral",
@@ -53,15 +56,15 @@ animations = [ {
 "loop": true,
 "name": "Happy",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "Mad",
-"speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "Mad",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "Neutral",
@@ -71,28 +74,23 @@ animations = [ {
 "loop": true,
 "name": "Happy",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "Mad",
-"speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "5",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 14 ) ],
 "loop": true,
 "name": "2",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 13 ) ],
+"frames": [ ExtResource( 16 ) ],
 "loop": true,
-"name": "3",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 15 ) ],
-"loop": true,
-"name": "6",
+"name": "1",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 12 ) ],
@@ -102,12 +100,12 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 15 ) ],
 "loop": true,
-"name": "5",
+"name": "6",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 16 ) ],
+"frames": [ ExtResource( 13 ) ],
 "loop": true,
-"name": "1",
+"name": "3",
 "speed": 5.0
 } ]
 
@@ -379,6 +377,19 @@ margin_right = 264.0
 margin_bottom = 581.0
 text = "Roll Dice"
 
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 438.0
+margin_top = 10.0
+margin_right = 573.0
+margin_bottom = 50.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Debug Dialog"
+
+[node name="PauseLayer" parent="." instance=ExtResource( 20 )]
+
 [connection signal="pressed" from="DiceBoss/PublicDice/Public Die 1/D1Button" to="DiceBoss" method="_on_D1Button_pressed"]
 [connection signal="pressed" from="DiceBoss/PublicDice/Public Die 2/D2Button" to="DiceBoss" method="_on_D2Button_pressed"]
 [connection signal="pressed" from="DiceBoss/PublicDice/Public Die 3/D3Button" to="DiceBoss" method="_on_D3Button_pressed"]
@@ -394,18 +405,5 @@ text = "Roll Dice"
 [connection signal="mouse_exited" from="DiceBoss/DicePool/Die 5/KinematicBody2D" to="DiceBoss/DicePool/Die 5" method="_on_KinematicBody2D_mouse_exited"]
 [connection signal="mouse_entered" from="DiceBoss/DicePool/Die 6/KinematicBody2D" to="DiceBoss/DicePool/Die 6" method="_on_KinematicBody2D_mouse_entered"]
 [connection signal="mouse_exited" from="DiceBoss/DicePool/Die 6/KinematicBody2D" to="DiceBoss/DicePool/Die 6" method="_on_KinematicBody2D_mouse_exited"]
-
-[node name="Button" type="Button" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = 438.0
-margin_top = 10.0
-margin_right = 573.0
-margin_bottom = 50.0
-focus_mode = 0
-enabled_focus_mode = 0
-text = "Debug Dialog"
-
-[node name="PauseLayer" parent="." instance=ExtResource( 20 )]
 [connection signal="pressed" from="RollButton" to="DiceBoss" method="_on_RollButton_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
