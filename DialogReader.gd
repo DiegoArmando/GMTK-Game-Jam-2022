@@ -1,33 +1,31 @@
-extends MarginContainer
+extends CanvasLayer
 
 export var dialogPath = ""
 export(float) var textSpeed = 0.05
 
 var dialog
-var phraseNum
-var untilLine
+export(int) var phraseNum
+export(int) var untilLine
 var finishedDisplaying
 var tween
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Timer.wait_time = textSpeed
+	$"Textbox Container/Timer".wait_time = textSpeed
 	dialog = getDialog()
-	phraseNum = 0
-	untilLine = 5
-	tween = $"Panel/Text Postion/VBoxContainer/Tween"
+	tween = $"Textbox Container/Panel/Text Postion/VBoxContainer/Tween"
 	assert(dialog, "getDialog() has failed")
 	nextPhrase()
 	
 func _process(_delta):
-	$"Panel/Text Postion/VBoxContainer/Indicator".visible = finishedDisplaying
+	$"Textbox Container/Panel/Text Postion/VBoxContainer/Indicator".visible = finishedDisplaying
 	if Input.is_action_just_pressed("ui_accept"):
 		if finishedDisplaying:
 			nextPhrase()
 		else:
 			tween.stop_all()
 			finishedDisplaying = true
-			$"Panel/Text Postion/VBoxContainer/Dialog".visible_characters = -1
+			$"Textbox Container/Panel/Text Postion/VBoxContainer/Dialog".visible_characters = -1
 	pass
 	
 
@@ -36,13 +34,13 @@ func nextPhrase() -> void:
 		queue_free()
 		return
 	finishedDisplaying = false
-	$"Panel/Text Postion/VBoxContainer/CharacterName".bbcode_text = dialog[phraseNum]["Name"]
-	$"Panel/Text Postion/VBoxContainer/Dialog".bbcode_text = dialog[phraseNum]["Text"]
-	$"Panel/Text Postion/VBoxContainer/Dialog".visible_characters = 0
+	$"Textbox Container/Panel/Text Postion/VBoxContainer/CharacterName".bbcode_text = dialog[phraseNum]["Name"]
+	$"Textbox Container/Panel/Text Postion/VBoxContainer/Dialog".bbcode_text = dialog[phraseNum]["Text"]
+	$"Textbox Container/Panel/Text Postion/VBoxContainer/Dialog".visible_characters = 0
 	tween.interpolate_property(
-		$"Panel/Text Postion/VBoxContainer/Dialog", "visible_characters", 0, 
-		$"Panel/Text Postion/VBoxContainer/Dialog".text.length(), $"Panel/Text Postion/VBoxContainer/Dialog".text.length()/45.0,
-		tween.TRANS_LINEAR, Tween.EASE_IN_OUT
+		$"Textbox Container/Panel/Text Postion/VBoxContainer/Dialog", "visible_characters", 0, 
+		$"Textbox Container/Panel/Text Postion/VBoxContainer/Dialog".text.length(), $"Textbox Container/Panel/Text Postion/VBoxContainer/Dialog".text.length()/45.0,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT
 	)
 	tween.start()
 	phraseNum += 1
