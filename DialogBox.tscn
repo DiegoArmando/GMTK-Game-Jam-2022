@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://DialogReader.gd" type="Script" id=1]
-[ext_resource path="res://Fonts/Peaberry-Font-v2.0/Peaberry-Font-v2.0/Peaberry Font Family/Peaberry Base/Peaberry-Base.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://Sprites/Dialog_Triangle.png" type="Texture" id=2]
 [ext_resource path="res://Fonts/Peaberry-Base.otf" type="DynamicFontData" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -14,11 +14,42 @@ border_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 32
-font_data = ExtResource( 2 )
+font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 32
 font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "Idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 851, 110 ), Vector2( 851, 115 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 851, 124 ) ]
+}
 
 [node name="DialogBox" type="CanvasLayer"]
 
@@ -49,19 +80,41 @@ margin_bottom = -15.0
 margin_right = 854.0
 margin_bottom = 138.0
 
-[node name="CharacterName" type="Label" parent="Textbox Container/Panel/Text Postion/VBoxContainer"]
+[node name="CharacterName" type="RichTextLabel" parent="Textbox Container/Panel/Text Postion/VBoxContainer"]
 margin_right = 854.0
-margin_bottom = 32.0
-size_flags_vertical = 1
-custom_fonts/font = SubResource( 2 )
-text = "Testing"
+margin_bottom = 33.0
+rect_clip_content = false
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "Test Name"
+text = "Test Name"
+fit_content_height = true
 
-[node name="DialogText" type="Label" parent="Textbox Container/Panel/Text Postion/VBoxContainer"]
-margin_top = 36.0
+[node name="Dialog" type="RichTextLabel" parent="Textbox Container/Panel/Text Postion/VBoxContainer"]
+margin_top = 37.0
 margin_right = 854.0
-margin_bottom = 68.0
-size_flags_vertical = 1
-custom_fonts/font = SubResource( 3 )
-text = "Testing A lot more Text"
+margin_bottom = 103.0
+rect_clip_content = false
+custom_fonts/mono_font = SubResource( 3 )
+custom_fonts/normal_font = SubResource( 3 )
+bbcode_enabled = true
+bbcode_text = "This is some dialog for the dialog box. Is the Dialog wrapping? Good."
+text = "This is some dialog for the dialog box. Is the Dialog wrapping? Good."
+fit_content_height = true
+scroll_active = false
+
+[node name="Indicator" type="Sprite" parent="Textbox Container/Panel/Text Postion/VBoxContainer"]
+position = Vector2( 851, 124 )
+scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Textbox Container/Panel/Text Postion/VBoxContainer/Indicator"]
+autoplay = "Idle"
+anims/Idle = SubResource( 4 )
+anims/RESET = SubResource( 5 )
+
+[node name="Tween" type="Tween" parent="Textbox Container/Panel/Text Postion/VBoxContainer"]
 
 [node name="Timer" type="Timer" parent="Textbox Container"]
+
+[connection signal="tween_completed" from="Textbox Container/Panel/Text Postion/VBoxContainer/Tween" to="Textbox Container" method="_on_Tween_tween_completed"]
