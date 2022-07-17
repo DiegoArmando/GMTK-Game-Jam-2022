@@ -13,6 +13,10 @@ func _on_start_dialogue(path):
 	dialogPath = path
 	phraseNum = 0
 	dialog = getDialog()
+	if "finished" in dialog[0]:
+		get_tree().root.get_node("Node2D/EndScreen/EndOfGameBarrier").visible = true
+		queue_free()
+		return
 	nextPhrase()
 
 # Called when the node enters the scene tree for the first time.
@@ -60,8 +64,8 @@ func getDialog() -> Array:
 #	{"Name": "Individual", "Text": "QUIET! That doesn't mean we don't have [rainbow][tornado]schemes[/tornado][/rainbow] planned for it!"},
 #	{'Name': 'Polite One', 'Text': 'Could you please come back later? Sorry!'}];
 	var file = File.new()
-	assert(file.file_exists("res://Text/" + dialogPath + ".json"), "File path for dialog does not exist");
-	
+	if not file.file_exists("res://Text/" + dialogPath + ".json"):
+		return [{"finished": true}]
 	file.open("res://Text/" + dialogPath + ".json", File.READ)
 	var fileAsJson = file.get_as_text()
 
@@ -70,9 +74,7 @@ func getDialog() -> Array:
 		return dialogOutput
 	else:
 		return []
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
 
 
 func _on_Tween_tween_completed(_object, _key):
