@@ -13,10 +13,6 @@ func _on_start_dialogue(path):
 	dialogPath = path
 	phraseNum = 0
 	dialog = getDialog()
-	if "finished" in dialog[0]:
-		get_tree().root.get_node("Node2D/EndScreen/EndOfGameBarrier").visible = true
-		queue_free()
-		return
 	nextPhrase()
 
 # Called when the node enters the scene tree for the first time.
@@ -41,6 +37,10 @@ func _process(_delta):
 	
 
 func nextPhrase() -> void:
+	if "Finished" in dialog[0]:
+		get_tree().root.get_node("Node2D/EndScreen/EndOfGameBarrier").visible = true
+		queue_free()
+		return
 	if (phraseNum >= dialog.size()):
 		queue_free()
 		return
@@ -54,6 +54,23 @@ func nextPhrase() -> void:
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT
 	)
 	tween.start()
+	if "Image" in dialog[phraseNum]:
+		if dialog[phraseNum]["Name"] == "Burgeur":
+			#P1
+			get_tree().root.get_node('Node2D/P1/AnimatedSprite').animation = dialog[phraseNum]["Image"]
+			pass
+		elif dialog[phraseNum]["Name"] == "Sightseer":
+			#P3
+			get_tree().root.get_node('Node2D/P3/AnimatedSprite').animation = dialog[phraseNum]["Image"]
+			pass
+		elif dialog[phraseNum]["Name"] == "The Card Shark":
+			#P2
+			get_tree().root.get_node('Node2D/P2/AnimatedSprite').animation = dialog[phraseNum]["Image"]
+			pass
+		elif dialog[phraseNum]["Name"] == "???":
+			#P4
+			get_tree().root.get_node('Node2D/P4/AnimatedSprite').animation = dialog[phraseNum]["Image"]
+			pass
 	phraseNum += 1
 	
 
@@ -65,7 +82,7 @@ func getDialog() -> Array:
 #	{'Name': 'Polite One', 'Text': 'Could you please come back later? Sorry!'}];
 	var file = File.new()
 	if not file.file_exists("res://Text/" + dialogPath + ".json"):
-		return [{"finished": true}]
+		return [{"Finished": 1}] #default
 	file.open("res://Text/" + dialogPath + ".json", File.READ)
 	var fileAsJson = file.get_as_text()
 

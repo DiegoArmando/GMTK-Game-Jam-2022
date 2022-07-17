@@ -21,11 +21,11 @@ func _ready():
 	mood_text.text = "Mood:" + String(mood)
 	
 	if mood > 0:
-		mysprite.animation = "Happy"
+		mysprite.animation = "gleeful"
 	elif mood < 0:
-		mysprite.animation = "Mad"
+		mysprite.animation = "angry"
 	else:
-		mysprite.animation = "Neutral"
+		mysprite.animation = "neutral"
 	
 
 
