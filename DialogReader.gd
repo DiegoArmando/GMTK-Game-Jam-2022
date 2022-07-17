@@ -42,13 +42,63 @@ func nextPhrase() -> void:
 	# To swap to the ending, put this in the appropriate place:
 	# get_tree().change_scene("res://Ending.tscn")
 	
-	if "Finished" in dialog[0]:
-		if not seen_endings.has(dialog[0]["Finished"]):
-			seen_endings.append(dialog[0]["Finished"])
-		get_tree().root.get_node("Node2D/EndScreen/EndOfGameBarrier").visible = true
+	if (phraseNum >= dialog.size()):
 		queue_free()
 		return
-	if (phraseNum >= dialog.size()):
+	if "Appear" in dialog[phraseNum]:
+		if dialog[phraseNum]["Appear"] == "Burgeur":
+			#P1
+			get_tree().root.get_node('Node2D/P1/AnimatedSprite').visible = true
+			phraseNum += 1
+			nextPhrase()
+			return
+		elif dialog[phraseNum]["Name"] == "Sightseer":
+			#P3
+			get_tree().root.get_node('Node2D/P3/AnimatedSprite').visible = true
+			phraseNum += 1
+			nextPhrase()
+			return
+		elif dialog[phraseNum]["Name"] == "The Card Shark":
+			#P2
+			get_tree().root.get_node('Node2D/P2/AnimatedSprite').visible = true
+			phraseNum += 1
+			nextPhrase()
+			return
+		elif dialog[phraseNum]["Name"] == "???":
+			#P4
+			get_tree().root.get_node('Node2D/P4/AnimatedSprite').visible = true
+			phraseNum += 1
+			nextPhrase()
+			return
+	if "Disappear" in dialog[phraseNum]:
+		if dialog[phraseNum]["Appear"] == "Burgeur":
+			#P1
+			get_tree().root.get_node('Node2D/P1/AnimatedSprite').visible = false
+			phraseNum += 1
+			nextPhrase()
+			return
+		elif dialog[phraseNum]["Name"] == "Sightseer":
+			#P3
+			get_tree().root.get_node('Node2D/P3/AnimatedSprite').visible = false
+			phraseNum += 1
+			nextPhrase()
+			return
+		elif dialog[phraseNum]["Name"] == "The Card Shark":
+			#P2
+			get_tree().root.get_node('Node2D/P2/AnimatedSprite').visible = false
+			phraseNum += 1
+			nextPhrase()
+			return
+		elif dialog[phraseNum]["Name"] == "???":
+			#P4
+			get_tree().root.get_node('Node2D/P4/AnimatedSprite').visible = false
+			phraseNum += 1
+			nextPhrase()
+			return
+	if "Finished" in dialog[phraseNum]:
+		if not seen_endings.has(dialog[phraseNum]["Finished"]):
+			seen_endings.append(dialog[phraseNum]["Finished"])
+		get_tree().root.get_node("Node2D/EndScreen/EndOfGameBarrier").visible = true
 		queue_free()
 		return
 	finishedDisplaying = false
