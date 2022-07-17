@@ -39,6 +39,9 @@ func _process(_delta):
 	
 
 func nextPhrase() -> void:
+	# To swap to the ending, put this in the appropriate place:
+	# get_tree().change_scene("res://Ending.tscn")
+	
 	if "Finished" in dialog[0]:
 		if not seen_endings.has(dialog[0]["Finished"]):
 			seen_endings.append(dialog[0]["Finished"])
