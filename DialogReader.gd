@@ -9,6 +9,8 @@ export(int) var untilLine
 var finishedDisplaying
 var tween
 
+var seen_endings = []
+
 func _on_start_dialogue(path):
 	dialogPath = path
 	phraseNum = 0
@@ -38,6 +40,8 @@ func _process(_delta):
 
 func nextPhrase() -> void:
 	if "Finished" in dialog[0]:
+		if not seen_endings.has(dialog[0]["Finished"]):
+			seen_endings.append(dialog[0]["Finished"])
 		get_tree().root.get_node("Node2D/EndScreen/EndOfGameBarrier").visible = true
 		queue_free()
 		return
