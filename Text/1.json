@@ -1,5 +1,5 @@
 [
-	{"Name":"A", "Text": "I won this round"},
-	{"Name":"B", "Text": "I lost this round"},
+	{"Name":"Burgeur", "Image": "angry", "Text": "I won this round"},
+	{"Name":"The Card Shark", "Image": "nervous", "Text": "I lost this round"},
 	{"Name":"C", "Text": "I also lost this round"}
 ]
