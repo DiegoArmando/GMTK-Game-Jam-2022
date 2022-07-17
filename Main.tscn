@@ -26,14 +26,14 @@ animations = [ {
 "name": "Mad",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "Neutral",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "Happy",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "Neutral",
 "speed": 5.0
 } ]
 
@@ -47,14 +47,14 @@ animations = [ {
 "name": "Mad",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "Neutral",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "Happy",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "Neutral",
 "speed": 5.0
 } ]
 
@@ -65,14 +65,14 @@ animations = [ {
 "name": "Mad",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "Neutral",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "Happy",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Neutral",
 "speed": 5.0
 } ]
 
@@ -98,14 +98,14 @@ animations = [ {
 "name": "4",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 15 ) ],
-"loop": true,
-"name": "6",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 13 ) ],
 "loop": true,
 "name": "3",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "6",
 "speed": 5.0
 } ]
 
@@ -244,6 +244,7 @@ margin_left = -287.18
 margin_top = -276.923
 margin_right = 307.82
 margin_bottom = 287.077
+focus_mode = 0
 
 [node name="Public Die 2" type="AnimatedSprite" parent="DiceBoss/PublicDice"]
 position = Vector2( 476, 559 )
@@ -257,6 +258,7 @@ margin_left = -287.18
 margin_top = -276.923
 margin_right = 307.82
 margin_bottom = 287.077
+focus_mode = 0
 
 [node name="Public Die 3" type="AnimatedSprite" parent="DiceBoss/PublicDice"]
 position = Vector2( 568, 558 )
@@ -270,6 +272,7 @@ margin_left = -287.18
 margin_top = -276.923
 margin_right = 307.82
 margin_bottom = 287.077
+focus_mode = 0
 
 [node name="DicePool" type="Node" parent="DiceBoss"]
 
@@ -375,6 +378,7 @@ margin_left = 38.0
 margin_top = 528.0
 margin_right = 264.0
 margin_bottom = 581.0
+focus_mode = 0
 text = "Roll Dice"
 
 [node name="Button" type="Button" parent="."]
@@ -390,6 +394,7 @@ text = "Debug Dialog"
 
 [node name="PauseLayer" parent="." instance=ExtResource( 20 )]
 
+[connection signal="round_won" from="DiceBoss" to="." method="_on_DiceBoss_round_won"]
 [connection signal="pressed" from="DiceBoss/PublicDice/Public Die 1/D1Button" to="DiceBoss" method="_on_D1Button_pressed"]
 [connection signal="pressed" from="DiceBoss/PublicDice/Public Die 2/D2Button" to="DiceBoss" method="_on_D2Button_pressed"]
 [connection signal="pressed" from="DiceBoss/PublicDice/Public Die 3/D3Button" to="DiceBoss" method="_on_D3Button_pressed"]

@@ -1,0 +1,5 @@
+[
+	{"Name":"A", "Text": "I lost the last round and this round"},
+	{"Name":"B", "Text": "I won the last round but lost this round"},
+	{"Name":"C", "Text": "I also lost the last round, but I won this round"}
+]

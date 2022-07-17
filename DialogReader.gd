@@ -9,16 +9,23 @@ export(int) var untilLine
 var finishedDisplaying
 var tween
 
+func _on_start_dialogue(path):
+	dialogPath = path
+	phraseNum = 0
+	dialog = getDialog()
+	nextPhrase()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$"Textbox Container/Timer".wait_time = textSpeed
-	dialog = getDialog()
+	#dialog = getDialog()
 	tween = $"Textbox Container/Panel/Text Postion/VBoxContainer/Tween"
-	assert(dialog, "getDialog() has failed")
-	nextPhrase()
+	finishedDisplaying = true
+	#assert(dialog, "getDialog() has failed")
+	#nextPhrase()
 	
 func _process(_delta):
-	$"Textbox Container/Panel/Text Postion/VBoxContainer/Indicator".visible = finishedDisplaying
+	#$"Textbox Container/Panel/Text Postion/VBoxContainer/Indicator".visible = finishedDisplaying
 	if Input.is_action_just_pressed("ui_accept"):
 		if finishedDisplaying:
 			nextPhrase()
@@ -26,11 +33,11 @@ func _process(_delta):
 			tween.stop_all()
 			finishedDisplaying = true
 			$"Textbox Container/Panel/Text Postion/VBoxContainer/Dialog".visible_characters = -1
-	pass
+	
 	
 
 func nextPhrase() -> void:
-	if (phraseNum >= untilLine):
+	if (phraseNum >= dialog.size()):
 		queue_free()
 		return
 	finishedDisplaying = false
@@ -44,30 +51,30 @@ func nextPhrase() -> void:
 	)
 	tween.start()
 	phraseNum += 1
-	pass
+	
 
 func getDialog() -> Array:
-	return [{"Name": "Dude", "Text": "Hey, what'chu looking at, punk?"},
-	{"Name": "Fellah", "Text": "This is the [wave]Dialog System[/wave]"},
-	{"Name": "Small Guy", "Text": "[shake]Well, more the textbox, not the full thing[/shake]"},
-	{"Name": "Individual", "Text": "QUIET! That doesn't mean we don't have [rainbow][tornado]schemes[/tornado][/rainbow] planned for it!"},
-	{'Name': 'Polite One', 'Text': 'Could you please come back later? Sorry!'}];
-	#var file = File.new()
-	#assert(file.file_exists(dialogPath), "File path for dialog does not exist");
+#	return [{"Name": "Dude", "Text": "Hey, what'chu looking at, punk?"},
+#	{"Name": "Fellah", "Text": "This is the [wave]Dialog System[/wave]"},
+#	{"Name": "Small Guy", "Text": "[shake]Well, more the textbox, not the full thing[/shake]"},
+#	{"Name": "Individual", "Text": "QUIET! That doesn't mean we don't have [rainbow][tornado]schemes[/tornado][/rainbow] planned for it!"},
+#	{'Name': 'Polite One', 'Text': 'Could you please come back later? Sorry!'}];
+	var file = File.new()
+	assert(file.file_exists("res://Text/" + dialogPath + ".json"), "File path for dialog does not exist");
 	
-	#file.open(dialogPath, File.READ)
-	#var fileAsJson = file.get_as_text()
-	
-	#var dialogOutput = parse_json(fileAsJson)
-	#if typeof(dialogOutput) == TYPE_ARRAY:
-	#	return dialogOutput
-	#else:
-	#	return []
+	file.open("res://Text/" + dialogPath + ".json", File.READ)
+	var fileAsJson = file.get_as_text()
+
+	var dialogOutput = parse_json(fileAsJson)
+	if typeof(dialogOutput) == TYPE_ARRAY:
+		return dialogOutput
+	else:
+		return []
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
 
-func _on_Tween_tween_completed(object, key):
+func _on_Tween_tween_completed(_object, _key):
 	finishedDisplaying = true
 	pass # Replace with function body.

@@ -27,6 +27,8 @@ enum hand_type {BUST, TWO, STRAIGHT, THREE}
 
 var rng = RandomNumberGenerator.new()
 
+signal round_won(winner)
+
 class HandSorter:
 	static func sort_ascending(a,b):
 		if a[0] == b[0]:
@@ -116,11 +118,13 @@ func evaluate_hands(public_die_value):
 	var winner
 	match all_hands.back():
 		p1_hand_obj:
-			winner = "Player 1"
+			winner = 1
 		p2_hand_obj:
-			winner = "Player 2"
+			winner = 2
 		p3_hand_obj:
-			winner = "Player 3"
+			winner = 3
 	
-	$TestText.text = "Winner: " + winner
+	emit_signal("round_won", winner)
+	#$TestText.text = "Winner: " + winner
+	
 	#pass
