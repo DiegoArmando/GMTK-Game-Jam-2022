@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Sprites/C_Happy.png" type="Texture" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Title Screen Img" type="Sprite" parent="."]
+position = Vector2( 481, 251 )
+texture = ExtResource( 2 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 302.0
+margin_top = 515.0
+margin_right = 715.0
+margin_bottom = 572.0
+text = "Ending - Thanks for playing!"
