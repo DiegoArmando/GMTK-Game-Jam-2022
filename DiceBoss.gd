@@ -23,6 +23,11 @@ onready var rolled_6 = get_node(rolled_6_path)
 onready var publics = [public_1, public_2, public_3]
 onready var rolled = [rolled_1, rolled_2, rolled_3, rolled_4, rolled_5, rolled_6]
 
+var round_index = 0
+var rounds = [["1","2","1","3","1","4","2","3","4"],
+			  ["3","2","1","3","3","4","2","3","4"],
+			  ["5","2","5","3","5","4","2","3","4"]]
+
 enum hand_type {BUST, TWO, STRAIGHT, THREE}
 
 var rng = RandomNumberGenerator.new()
@@ -57,15 +62,21 @@ func _ready():
 
 
 func _on_RollButton_pressed():
-	var rand_num = 0
-	for die in publics:
-		rand_num = rng.randi_range(1,6)
-		die.animation = str(rand_num)
+#	var rand_num = 0
+	var die_index = 0
+	
+	if round_index >= rounds.size():
+		return
 				
 	for die in rolled:
-		rand_num = rng.randi_range(1,6)
-		die.animation = str(rand_num)
-				
+		die.animation = rounds[round_index][die_index]
+		die_index += 1
+		
+	for die in publics:
+		die.animation = rounds[round_index][die_index]
+		die_index += 1
+	
+	round_index += 1	
 			 
 
 

@@ -81,22 +81,22 @@ animations = [ {
 animations = [ {
 "frames": [ ExtResource( 15 ) ],
 "loop": true,
-"name": "5",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 13 ) ],
-"loop": true,
-"name": "3",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 15 ) ],
-"loop": true,
 "name": "6",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 16 ) ],
 "loop": true,
 "name": "1",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "5",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "3",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 12 ) ],
@@ -453,5 +453,5 @@ text = "One more roll"
 [connection signal="mouse_exited" from="DiceBoss/DicePool/Die 6/KinematicBody2D" to="DiceBoss/DicePool/Die 6" method="_on_KinematicBody2D_mouse_exited"]
 [connection signal="pressed" from="RollButton" to="DiceBoss" method="_on_RollButton_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="EndScreen/EndOfGameBarrier/RestartGame" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="EndScreen/EndOfGameBarrier/RestartGame" to="." method="_on_RestartGame_pressed"]
+[connection signal="pressed" from="EndScreen/EndOfGameBarrier/RestartGame" to="." method="_on_Button_pressed"]
